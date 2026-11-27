@@ -1,9 +1,10 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { FindAllUsersUseCase } from '../../../application/use-cases/find-all-users.use-case.js';
-import type { TUserResponse } from '../schemas/user-response.schema.js';
-import { userResponseSchema } from '../schemas/user-response.schema.js';
+import type { TUserResponse } from '../schemas/response/user-response.schema.js';
+import { userResponseSchema } from '../schemas/response/user-response.schema.js';
 import { FindUserByIdUseCase } from '../../../application/use-cases/find-user-by-id.use-case.js';
+import { findUserByIdRequestSchema } from '../schemas/request/find-user-by-id-request.schema.js';
 
 @ApiTags('users')
 @Controller({ path: 'users', version: '1' })
@@ -30,7 +31,7 @@ export class UsersController {
     description: 'User with given id',
     standardSchema: userResponseSchema,
   })
-  async findById(@Param('id') id: string): Promise<TUserResponse> {
+  async findById(@Param('id', { schema: findUserByIdRequestSchema }) id: string): Promise<TUserResponse> {
     return this.findByIdUseCase.execute(id);
   }
 }

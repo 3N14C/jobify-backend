@@ -4,5 +4,5 @@ export abstract class UsersPort {
   abstract findAll(): Promise<TUser[]>;
   abstract findById(id: string): Promise<TUser | null>;
   abstract findByEmail(email: string): Promise<TUser | null>;
-  abstract create(user: Omit<TUser, 'id' | 'updatedAt' | 'createdAt'>): Promise<void>;
+  abstract create(user: Pick<TUser, 'name' | 'email' | 'hashedPassword'>): Promise<TUser>;
 }

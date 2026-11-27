@@ -4,9 +4,9 @@ import { TEnvConfig } from './app-config.schema.js';
 
 @Injectable()
 export class AppConfigService {
-  constructor(private readonly config: ConfigService) {}
+  constructor(private readonly config: ConfigService<TEnvConfig, true>) {}
 
   get<K extends keyof TEnvConfig>(key: K): TEnvConfig[K] {
-    return this.config.getOrThrow(key);
+    return this.config.get(key);
   }
 }

@@ -6,6 +6,8 @@ export function setupSwagger(app: INestApplication): void {
     .setTitle('Jobify API')
     .setDescription('Jobify HTTP API')
     .setVersion('1.0.0')
+    .addCookieAuth('accessToken')
+    .addSecurityRequirements('cookie')
     .build();
 
   const documentFactory = () => SwaggerModule.createDocument(app, config);
@@ -13,5 +15,8 @@ export function setupSwagger(app: INestApplication): void {
   SwaggerModule.setup('docs', app, documentFactory, {
     jsonDocumentUrl: 'openapi.json',
     yamlDocumentUrl: 'openapi.yaml',
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
   });
 }

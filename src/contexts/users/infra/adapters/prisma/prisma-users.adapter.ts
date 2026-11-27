@@ -27,8 +27,8 @@ export class PrismaUsersAdapter implements UsersPort {
     });
   }
 
-  async create(user: Omit<TUser, 'id' | 'updatedAt' | 'createdAt'>): Promise<void> {
-    await this.prisma.user.create({
+  create(user: Omit<TUser, 'id' | 'updatedAt' | 'createdAt'>): Promise<TUser> {
+    return this.prisma.user.create({
       data: user,
     });
   }

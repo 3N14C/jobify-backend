@@ -5,7 +5,7 @@ export const userOutputSchema = z.object({
   id: z.cuid2(),
   name: z.string(),
   email: z.email(),
-  createdAt: z.date(),
+  createdAt: z.iso.datetime(),
 });
 
 export type TUserOutput = z.infer<typeof userOutputSchema>;
@@ -16,7 +16,7 @@ export class UserOutputMapper {
       id: user.id,
       name: user.name,
       email: user.email,
-      createdAt: user.createdAt,
+      createdAt: user.createdAt.toISOString(),
     };
   }
 }

@@ -7,7 +7,7 @@ import { AppModule } from '../src/app.module.js';
 import { configureApp } from '../src/configure-app.js';
 import type { TUser } from '../src/contexts/users/domain/entities/user.entity.js';
 import { UsersPort } from '../src/contexts/users/application/ports/users.port.js';
-import { userResponseSchema } from '../src/contexts/users/presentation/http/schemas/user-response.schema.js';
+import { userResponseSchema } from '../src/contexts/users/presentation/http/schemas/response/user-response.schema.js';
 import { PrismaService } from '../src/shared/infra/prisma/prisma.service.js';
 
 describe('Users HTTP API and OpenAPI', () => {
