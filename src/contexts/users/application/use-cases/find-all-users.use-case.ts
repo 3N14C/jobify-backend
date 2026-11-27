@@ -1,15 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { UsersPort } from '../ports/users.port.js';
-import type { TUserSummary } from '../outputs/user-summary.js';
-import { toUserSummary } from '../mappers/user-summary.mapper.js';
+import { TUserOutput, UserOutputMapper } from '../outputs/user.output.js';
 
 @Injectable()
 export class FindAllUsersUseCase {
   constructor(private readonly usersPort: UsersPort) {}
 
-  async execute(): Promise<TUserSummary[]> {
+  async execute(): Promise<TUserOutput[]> {
     const users = await this.usersPort.findAll();
 
-    return users.map(toUserSummary);
+    return users.map(UserOutputMapper.fromDomain);
   }
 }

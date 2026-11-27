@@ -1,18 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { UsersPort } from '../ports/users.port.js';
 import { UserNotFoundError } from '../../domain/errors/user.errors.js';
-import { TUserSummary } from '../outputs/user-summary.js';
-import { toUserSummary } from '../mappers/user-summary.mapper.js';
+import { TUserOutput, UserOutputMapper } from '../outputs/user.output.js';
 
 @Injectable()
 export class FindUserByIdUseCase {
   constructor(private readonly usersPort: UsersPort) {}
 
-  async execute(id: string): Promise<TUserSummary> {
+  async execute(id: string): Promise<TUserOutput> {
     const user = await this.usersPort.findById(id);
 
     if (!user) throw new UserNotFoundError();
 
-    return toUserSummary(user);
+    return UserOutputMapper.fromDomain(user);
   }
 }

@@ -18,4 +18,18 @@ export class PrismaUsersAdapter implements UsersPort {
       },
     });
   }
+
+  findByEmail(email: string): Promise<TUser | null> {
+    return this.prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+  }
+
+  async create(user: Omit<TUser, 'id' | 'updatedAt' | 'createdAt'>): Promise<void> {
+    await this.prisma.user.create({
+      data: user,
+    });
+  }
 }
